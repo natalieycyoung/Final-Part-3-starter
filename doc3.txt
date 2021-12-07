@@ -1,0 +1,1 @@
+collections of generics are common in many languages, such as java

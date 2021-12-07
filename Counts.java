@@ -52,7 +52,7 @@ class CountExamples	//implements Query<T>
 	 * that matches return true for query at that index in queries
 	 */
 	// static generic method counts
-	static <T> List<Integer> counts(List<Query<T>> queries, List<T> values)
+	public static <T> List<Integer> counts(List<Query<T>> queries, List<T> values)
 	{
 		List<Integer> matchedCounts = new ArrayList<>();
 
