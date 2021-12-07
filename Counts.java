@@ -50,6 +50,10 @@ class CountExamples	//implements Query<T>
 	 * Returns List<Integer> of same size as list queries; each
 	 * index in returned list corresponds to the count of values
 	 * that matches return true for query at that index in queries
+	 *
+	 * @param queries
+	 * @param values
+	 * @return matchedCounts;
 	 */
 	// static generic method counts
 	public static <T> List<Integer> counts(List<Query<T>> queries, List<T> values)
@@ -62,13 +66,13 @@ class CountExamples	//implements Query<T>
 
 			for (T value : values)
 			{
-				if (query.matches(value))
+				if (query.matches(value))	// this line
 				{
 					matchCount += 1;
 				}
 			}
 
-			matchedCounts.add(matchCount);
+			matchedCounts.add(matchCount);	// this line
 		}
 
 		return matchedCounts;
@@ -85,5 +89,28 @@ class CountExamples	//implements Query<T>
 		// 1 value equal to "banana"
 		// 4 values longer than 3
 		t.checkExpect(counts(queries, docs), Arrays.asList(5, 1, 4));
+
+		Query<Integer> intQuery1 = new EqualValueQuery(0);
+		Query<Integer> intQuery2 = new EqualValueQuery(3);
+		List<Integer> ints = Arrays.asList(1,2,3);
+		List<Query<Integer>> intQueries = Arrays.asList(intQuery1, intQuery2);
+
+		t.checkExpect(counts(intQueries, ints), Arrays.asList(0,1));
+
+	}
+}
+
+class EqualValueQuery implements Query<Integer>
+{
+	int length;
+
+	EqualValueQuery(int length)
+	{
+		this.length = length;
+	}
+
+	public boolean matches(Integer n)
+	{
+		return (length == n);	//this line
 	}
 }
